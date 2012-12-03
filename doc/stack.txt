@@ -1,10 +1,10 @@
 == Question(s):
 
-What example domain should I use?
+What's a good way to implement a client-side application model?
 
 
 == Details:
 
-I want to concentrate on learning the new stuff. => KISS
-
 Javascript model. => Application is runnable locally without server setup. Talking to a server backend later is easily achieved by implementing the model accordingly.
+
+I'll stick with the list of recommended libraries if possible.
