@@ -1,0 +1,10 @@
+== Question(s):
+
+What example domain should I use?
+
+
+== Details:
+
+I want to concentrate on learning the new stuff. => KISS
+
+Javascript model. => Application is runnable locally without server setup. Talking to a server backend later is easily achieved by implementing the model accordingly.
