@@ -42,9 +42,68 @@
 
 		<h2>Q001 - What's a good way to implement a client-side application model?</h2>
 
-		<p>Answer pending...</p>
+		<p>First finding: No strong type system, right! As a Java guy I assumed I'd go and define my data model using interfaces and classes. But yeah...</p>
+		
+        <p>Second finding: <a href="http://backbonejs.org/">Backbone.js</a> holds some great features that will certainly come in handy later:</p>
+		
+        <ol>
+		  <li>Model base type with  support
+          for data change events</li><li>Views</li>
+          <li>Routers (View flow control)</li>
+          <li>REST/AJAX support</li>
+		  <li>Validation methods</li>
+		  <li>Collections</li>
+          <li>HTML escaping support</li>
+          <li>...</li>
+		</ol>
+          
+        <p>I'll try a first shot at the <a href="src/main/webapp/js/model.js">model</a> based on an <a href="http://backbonejs.org/docs/todos.html">example with annotated source</a>:</p>
 
+        <pre>$(function() {
+	
+	window.Activity = Backbone.Model.extend({
+		defaults: function() {
+		  return {
+			name: "Nameless activity"
+		  };
+		}
+	});
+	
+	window.Event = Backbone.Model.extend({
+		defaults: function() {
+		  return {
+			date: "2012-12-21",
+			attending: [],
+			absent: []
+		  };
+		}
+	});
+	
+	window.EventList = Backbone.Collection.extend({
+		model: Event,
+		localStorage: new Store("events"),
+	});
+	
+});</pre>
 
-		</div> <!-- container -->
+        <p>... and some hack necessary to display the data:</p>
+        
+        <pre>var Events = new EventList;
+
+Events.on(&quot;add&quot;, function(item) {
+	$('#events-table').append(...);
+});
+
+...
+
+Events.add(new Event({date: '2012-12-15', attending: ['Frank', 'Ada', 'Dan'], absent: ['Michi']}));</pre>
+
+        <p>OK, modifying the EventList or its items fires events for which we can register listener functions. Works as expected - nice.</p>
+        
+        <p>Inside my listener function I mess with the DOM in an imperative way, which will obfuscate things in no time. This brings up the next question:</p>
+        
+        <h2>Q002 - How can I describe my data's representation in a declarative way?</h2>
+        
+    	</div> <!-- container -->
 	</body>
 </html>
