@@ -1,11 +1,8 @@
 == Question(s):
 
-What's a good way to implement a client-side application model?
+Can I avoid boilerplate code that renders the representation on each model change?
 
 
 == Details:
 
-Javascript model. => Application is runnable locally without server setup. Talking to a server backend later is easily achieved by implementing the model accordingly.
-
-http://backbonejs.org/
-
+http://backbonejs.org/#View

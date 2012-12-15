@@ -104,6 +104,66 @@ Events.add(new Event({date: '2012-12-15', attending: ['Frank', 'Ada', 'Dan'], ab
         
         <h2>Q002 - How can I describe my data's representation in a declarative way?</h2>
         
-    	</div> <!-- container -->
+        <p>Backbone.js depends on Underscore.js, which has this <a href="http://underscorejs.org/#template">_.template</a> method... I could use _.template, but it's ugly, since It only replaces keys in JS strings. I would still write JS code for looping over items in a collection, etc.</p>
+        
+        <p><a href="http://handlebarsjs.com/">Handlebars.js</a> templates look much more appealing to me. Here I can write HTML code and add only the very necessary placeholders, conditionals and iteration commands. So here's my first go on a handlebars template in <a href="../src/main/webapp/index.html">index.html</a>:</p>
+        
+        <pre>&lt;script id=&quot;item-template&quot; type=&quot;text/x-handlebars-template&quot;&gt;
+    &lt;tr&gt;
+        &lt;td&gt;{{date}}&lt;/td&gt;
+        &lt;td&gt;{{#each attending}} &lt;span class=&quot;attending&quot;&gt;{{this}}&lt;/span&gt; {{/each}}&lt;/td&gt;
+        &lt;td&gt;{{#each absent}} &lt;span class=&quot;absent&quot;&gt;{{this}}&lt;/span&gt; {{/each}}&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/script&gt;</pre>
+        
+        <p>One still readable piece of HTML that tells me what users will see later. To populate it, I changed the listener method on <strong>Events</strong> to this:</p>
+		
+        <pre><span class="greyed">Events.on(&quot;add&quot;, function(item) {</span><br>	var source = $(&quot;#item-template&quot;).html();
+	var template = Handlebars.compile(source);
+	$('#events-table').append(template(item.attributes));
+
+<span class="greyed">	$('#log-el').append('Item added: ' + JSON.stringify(item) + '\n');
+});</span></pre>
+
+        <p>To actually test this I added a function <code>addNewEvent(form)</code> to <a href="../src/main/webapp/js/main.js">main.js</a>:</p>
+        <pre>window.addNewEvent = function(form) {
+	Events.add(
+      new Event({date: form.date.value, attending: $(form.attending).val(), absent: $(form.absent).val()})
+   );
+}</pre>
+        
+        <p>And I also added a primitive form to <a href="../src/main/webapp/index.html">index.html</a> that allows creation of new events:</p>
+        
+		<pre>&lt;div id=&quot;new-event-form&quot;&gt;
+    &lt;form&gt;
+        date:&lt;input name=&quot;date&quot; type=&quot;date&quot; value=&quot;2012-12-21&quot;&gt;
+        attending: &lt;select name=&quot;attending&quot; multiple&gt;
+            &lt;option&gt;Ada&lt;/option&gt;
+            &lt;option&gt;Dan&lt;/option&gt;
+            &lt;option&gt;...&lt;/option&gt;
+        &lt;/select&gt;
+        ...
+        &lt;button type=&quot;button&quot; onClick=&quot;addNewEvent(this.form)&quot;&gt;add new event&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/div&gt;
+        </pre>
+        
+        <p>It works, but spreading stuff like this between the HTML code and JS files would mess things up as soon as the application grows. So...</p>
+        
+        <h2>Q003 - Can I avoid boilerplate code that renders the representation on each model change?</h2>
+        
+        
+        
+        <!--
+        
+        <p>... how do I react to input events without wiring JS methods directly all over my HTML code? </p>
+        
+        <h2>Q004 - Can I declare reactions to input events in one central place?</h2>
+        
+        <h2>Q005 - Can I declare reactions to input events in one central place?</h2>
+        
+        -->
+        
+        </div> <!-- container -->
 	</body>
 </html>

@@ -1,0 +1,13 @@
+@charset "UTF-8";
+table {
+	border:thin solid black;
+	border-spacing: 5px;
+}
+
+span.attending {
+	color: #060;
+}
+
+span.absent {
+	color: #900;
+}

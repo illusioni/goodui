@@ -12,7 +12,9 @@ $(function() {
 	
 		
 	Events.on("add", function(item) {
-		$('#events-table').append($('<tr />').append($('<td />').text(item.attributes.date)).append($('<td />').text('...')));
+		var source = $("#item-template").html();
+		var template = Handlebars.compile(source);
+		$('#events-table').append(template(item.attributes));
 		
 		$('#log-el').append('Item added: ' + JSON.stringify(item) + '\n');
 	});
@@ -21,5 +23,8 @@ $(function() {
 	Events.add(new Event({date: '2012-12-08', attending: ['Frank', 'Verena', 'Ada',  'Klaus', 'Saskia', 'Michi'], absent: ['Dan']}));
 	Events.add(new Event({date: '2012-12-15', attending: ['Frank', 'Ada', 'Dan'], absent: ['Michi']}));
 
-
+	window.addNewEvent = function(form) {
+		Events.add(new Event({date: form.date.value, attending: $(form.attending).val(), absent: $(form.absent).val()}));
+	}
 });
+

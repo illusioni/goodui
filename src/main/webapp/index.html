@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Activities</title>
+<link href="styles.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -12,7 +13,29 @@
 
 		<table id="events-table"></table>
 	</div>
+    
+    <div id="new-event-form">
+    	<form>
+            date:<input name="date" type="date" value="2012-12-21">
+            attending: <select name="attending" multiple>
+                <option>Ada</option>
+                <option>Dan</option>
+                <option>Frank</option>
+                <option>Saskia</option>
+                <option>Verena</option>
+            </select>
+            absent: <select name="absent" multiple>
+                <option>Ada</option>
+                <option>Dan</option>
+                <option>Frank</option>
+                <option>Saskia</option>
+                <option>Verena</option>
+            </select>
+            <button type="button" onClick="addNewEvent(this.form)">add new event</button>
+        </form>
+    </div>
 	
+    
 	<div id="log-div">
 		<p>Log output:</p>
 		<pre id="log-el"></pre>
@@ -22,9 +45,26 @@
 	<script src="lib/underscore.js"></script>
 	<script src="lib/backbone.js"></script>
 	<script src="lib/backbone-localstorage.js"></script>
+	<script src="lib/handlebars-1.0.rc.1.js"></script>
 
 	<script src="js/model.js"></script>
 	<script src="js/main.js"></script>
+    
+    
+    
+    
+    <!-- TEMPLATES -->
+    <!-- It's ugly that all templates should be listed here -->
+    
+    <script id="item-template" type="text/x-handlebars-template">
+		<tr>
+			<td>{{date}}</td>
+			<td>{{#each attending}} <span class="attending">{{this}}</span> {{/each}}</td>
+			<td>{{#each absent}} <span class="absent">{{this}}</span> {{/each}}</td>
+		</tr>
+	</script>
+    
+    
 
 </body>
 
