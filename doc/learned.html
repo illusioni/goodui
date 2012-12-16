@@ -158,7 +158,51 @@ Events.add(new Event({date: '2012-12-15', attending: ['Frank', 'Ada', 'Dan'], ab
         <h2>Q003 - Can I avoid boilerplate code that renders the representation on each model change?</h2>
         
         <p>Backbone.js features a <strong>View</strong> class. Views have a render function which can be bound to the model's change event.</p>
-        <p>Backbone.js version 0.9.9 introduced the listenTo method, ... TODO</p>
+        <p>Here is the definition of a view for a single event item in a list:</p>
+        
+        <pre>var EventItemView = Backbone.View.extend({
+	
+	template: Handlebars.compile($(&quot;#item-template&quot;).html()),
+	
+	tagName: &quot;tr&quot;,
+	
+	initialize: function() {
+		this.listenTo(this.model, 'change', this.render);
+		this.listenTo(this.model, 'destroy', this.remove);
+	},
+	
+	render: function() {
+		this.$el.html(this.template(this.model.toJSON()));
+		return this;
+	}
+	
+});</pre>
+        
+        <p>Model items in a collection each have a view that listens to the item. When the item changed, its view updates itself. When the item is destroyed, its view will remove itself from the DOM.</p>
+        <p>This standardizes where the code for UI updates should go, but it doesn't spare me the coding of this generic behavior in each view. I'm ok with this for now, though, since it seems quite simple to define generic behavior for my views if the application grows (through a common prototype or so). The generic behavior could include registering as a listener to the model and rendering from a Handlebars template that can be provided individually to every concrete view.</p>
+        
+        <p>I also need a view for the whole list:</p>
+        
+        <pre>var EventListView = Backbone.View.extend({
+	
+	el: $(&quot;#content&quot;),
+	
+	initialize: function() {
+		this.listenTo(Events, &quot;add&quot;, this.addEvent);
+	},
+	
+	addEvent: function(newEvent) {
+		var view = new EventItemView({model: newEvent});
+		this.$(&quot;#events-table&quot;).append(view.render().el);
+	}
+	
+});</pre>
+        
+        <p>No need to react to &quot;remove&quot; events. I destroy items rather than removing them from the collection. The EventItemView takes care of removing itself.</p>
+        
+        <p class="infobox">The <code>listenTo</code> method just got introduced with Backbone.js version 0.9.9</p>
+        
+        <h2>Q004 - Can I declare view actions in one central place?</h2>
         
         </div> <!-- container -->
 	</body>

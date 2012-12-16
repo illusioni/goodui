@@ -43,7 +43,7 @@ $(function() {
 			this.$("#events-table").append(view.render().el);
 		}
 		
-	});
+	  });
 	
 	var EventsView = new EventListView;
 	
@@ -51,6 +51,9 @@ $(function() {
 	Events.add(new Event({date: '2012-12-01', attending: ['Frank', 'Verena', 'Ada',  'Klaus', 'Dan'], absent: ['Saskia', 'Michi']}));
 	Events.add(new Event({date: '2012-12-08', attending: ['Frank', 'Verena', 'Ada',  'Klaus', 'Saskia', 'Michi'], absent: ['Dan']}));
 	Events.add(new Event({date: '2012-12-15', attending: ['Frank', 'Ada', 'Dan'], absent: ['Michi']}));
+	
+	alert("klick ok to remove one event");
+	Events.at(1).destroy();
 
 	window.addNewEvent = function(form) {
 		Events.add(new Event({date: form.date.value, attending: $(form.attending).val(), absent: $(form.absent).val()}));
