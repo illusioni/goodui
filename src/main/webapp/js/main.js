@@ -54,6 +54,9 @@ $(function() {
 	
 	alert("klick ok to remove one event");
 	Events.at(1).destroy();
+	
+	alert("klick ok to modify an event");
+	Events.at(1).set({attending: ['nobody'], absent: ['everybody']});
 
 	window.addNewEvent = function(form) {
 		Events.add(new Event({date: form.date.value, attending: $(form.attending).val(), absent: $(form.absent).val()}));

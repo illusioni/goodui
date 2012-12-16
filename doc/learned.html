@@ -157,7 +157,7 @@ Events.add(new Event({date: '2012-12-15', attending: ['Frank', 'Ada', 'Dan'], ab
         
         <h2>Q003 - Can I avoid boilerplate code that renders the representation on each model change?</h2>
         
-        <p>Backbone.js features a <strong>View</strong> class. Views have a render function which can be bound to the model's change event.</p>
+        <p>Finding: No finding. There is no ready-made solution in Backbone.js for generic rendering. It does feature a <strong>View</strong> class though. Views have a clear responsibility: They are where to keep the code (and its parameters) that takes care of reacting to model modifications and updating the UI. A view has a render function which can be bound to the model's  events.</p>
         <p>Here is the definition of a view for a single event item in a list:</p>
         
         <pre>var EventItemView = Backbone.View.extend({
@@ -202,7 +202,16 @@ Events.add(new Event({date: '2012-12-15', attending: ['Frank', 'Ada', 'Dan'], ab
         
         <p class="infobox">The <code>listenTo</code> method just got introduced with Backbone.js version 0.9.9</p>
         
-        <h2>Q004 - Can I declare view actions in one central place?</h2>
+        <p>There is a piece of code in <a href="../src/main/webapp/js/main.js">main.js</a> that demonstrates the automatic update and removal of views upon model manipulation:</p>
+        
+        <pre>alert("klick ok to remove one event");
+Events.at(1).destroy();
+
+alert("klick ok to modify an event");
+Events.at(1).set({attending: ['nobody'], absent: ['everybody']});</pre>
+
+		<p>Cute, but I'd rather have a delete button behind each event listed on the page, and possibly some widgets for editing it. And - again - I don't want to spread the action code or wire it in different places. I'd like to organize everything neatly inside the view, which brings up the next question...</p>
+		<h2>Q004 - Can I declare and wire view actions in one central place?</h2>
         
         </div> <!-- container -->
 	</body>
