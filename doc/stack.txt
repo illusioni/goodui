@@ -1,6 +1,6 @@
 == Question(s):
 
-Can I avoid boilerplate code that renders the representation on each model change?
+Can I declare and wire actions for UI events in one central place?
 
 
 == Details:

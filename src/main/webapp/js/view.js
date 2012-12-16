@@ -31,6 +31,6 @@ $(function() {
 			this.$("#events-table").append(view.render().el);
 		}
 		
-	  });
+	});
 	  
 });

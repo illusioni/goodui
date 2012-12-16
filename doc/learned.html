@@ -158,17 +158,17 @@ Events.add(new Event({date: '2012-12-15', attending: ['Frank', 'Ada', 'Dan'], ab
         <h2>Q003 - Can I avoid boilerplate code that renders the representation on each model change?</h2>
         
         <p>Finding: No finding. There is no ready-made solution in Backbone.js for generic rendering. It does feature a <strong>View</strong> class though. Views have a clear responsibility: They are where to keep the code (and its parameters) that takes care of reacting to model modifications and updating the UI. A view has a render function which can be bound to the model's  events.</p>
-        <p>Here is the definition of a view for a single event item in a list:</p>
+        <p>Here is the definition of a view for a single event item in a list in <a href="../src/main/webapp/js/view.js">view.js</a>:</p>
         
-        <pre>var EventItemView = Backbone.View.extend({
+        <pre>window.EventItemView = Backbone.View.extend({
 	
-	template: Handlebars.compile($(&quot;#item-template&quot;).html()),
+	template: Handlebars.compile($("#item-template").html()),
 	
-	tagName: &quot;tr&quot;,
+	tagName: "tr",
 	
 	initialize: function() {
 		this.listenTo(this.model, 'change', this.render);
-		this.listenTo(this.model, 'destroy', this.remove);
+		this.listenTo(this.model, 'destroy', this.remove); //TODO
 	},
 	
 	render: function() {
@@ -183,17 +183,17 @@ Events.add(new Event({date: '2012-12-15', attending: ['Frank', 'Ada', 'Dan'], ab
         
         <p>I also need a view for the whole list:</p>
         
-        <pre>var EventListView = Backbone.View.extend({
+        <pre>window.EventListView = Backbone.View.extend({
 	
-	el: $(&quot;#content&quot;),
+	el: $("#content"),
 	
 	initialize: function() {
-		this.listenTo(Events, &quot;add&quot;, this.addEvent);
+		this.listenTo(this.model, "add", this.addEvent);
 	},
 	
 	addEvent: function(newEvent) {
 		var view = new EventItemView({model: newEvent});
-		this.$(&quot;#events-table&quot;).append(view.render().el);
+		this.$("#events-table").append(view.render().el);
 	}
 	
 });</pre>
@@ -211,7 +211,7 @@ alert("klick ok to modify an event");
 Events.at(1).set({attending: ['nobody'], absent: ['everybody']});</pre>
 
 		<p>Cute, but I'd rather have a delete button behind each event listed on the page, and possibly some widgets for editing it. And - again - I don't want to spread the action code or wire it in different places. I'd like to organize everything neatly inside the view, which brings up the next question...</p>
-		<h2>Q004 - Can I declare and wire view actions in one central place?</h2>
+		<h2>Q004 - Can I declare and wire actions for UI events in one central place?</h2>
         
         </div> <!-- container -->
 	</body>
