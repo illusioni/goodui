@@ -3,6 +3,7 @@
 	<head>
 		<title>goodui gitclass - learned</title>
 		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="css/my.css" rel="stylesheet" media="screen">
 	</head>
 	<body>
 		<div class="container">
@@ -102,6 +103,8 @@ Events.add(new Event({date: '2012-12-15', attending: ['Frank', 'Ada', 'Dan'], ab
         
         <p>Inside my listener function I mess with the DOM in an imperative way, which will obfuscate things in no time. This brings up the next question:</p>
         
+        <span class="commit">(7e5f000881c674c53f5ac729f9f8e591f2bfa818)</span>
+        
         <h2>Q002 - How can I describe my data's representation in a declarative way?</h2>
         
         <p>Backbone.js depends on Underscore.js, which has this <a href="http://underscorejs.org/#template">_.template</a> method... I could use _.template, but it's ugly, since It only replaces keys in JS strings. I would still write JS code for looping over items in a collection, etc.</p>
@@ -150,19 +153,11 @@ Events.add(new Event({date: '2012-12-15', attending: ['Frank', 'Ada', 'Dan'], ab
         
         <p>It works, but spreading stuff like this between the HTML code and JS files would mess things up as soon as the application grows. So...</p>
         
+        <span class="commit">(772cb879faf544b3a9d2c87c07d4ea4435c69cda)</span>
+        
         <h2>Q003 - Can I avoid boilerplate code that renders the representation on each model change?</h2>
         
-        
-        
-        <!--
-        
-        <p>... how do I react to input events without wiring JS methods directly all over my HTML code? </p>
-        
-        <h2>Q004 - Can I declare reactions to input events in one central place?</h2>
-        
-        <h2>Q005 - Can I declare reactions to input events in one central place?</h2>
-        
-        -->
+        <p>Backbone.js features a <strong>View</strong> class. Views have a render function which can be bound to the model's change event.</p>
         
         </div> <!-- container -->
 	</body>
