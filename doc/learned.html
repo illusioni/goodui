@@ -248,7 +248,7 @@ Events.at(1).set({attending: ['nobody'], absent: ['everybody']});</pre>
 <span class="greyed">	template: Handlebars.compile($("#item-template").html()),
     ...</span></pre>
 
-		<p>Reminder: In JavaScript scope is handled a little different than in most statically typed oo languages (which makes you use the <a href="http://www.quirksmode.org/js/this.html">this</a> keyword explicitly quite often). Declaring event handler methods inside the view and mapping from DOM event to these handlers (rather than calling them as callback functions from inside <code>onclick</code>) leaves you with a correctly assigned this reference / useful scope.</p>
+		<p>Reminder: In JavaScript scope is handled a little different than in most statically typed OO languages (which makes you use the <a href="http://www.quirksmode.org/js/this.html">this</a> keyword explicitly quite often). Declaring event handler methods inside the view and mapping from DOM event to these handlers (rather than calling them as callback functions from inside <code>onclick</code> et. al.) leaves you with a correctly assigned this reference / useful scope.</p>
         
 		<p>This was quite simple. Now I want to use the persistence feature built into Backbone - Backbone.sync. I'll start with the HTML5 local storage	adapter	so I don't have to implement a backend.</p>
         

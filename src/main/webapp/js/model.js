@@ -20,7 +20,7 @@ $(function() {
 	
 	window.EventList = Backbone.Collection.extend({
 		model: Event,
-		localStorage: new Store("events"),
+		localStorage: new Backbone.LocalStorage("eventlist-backbone")
 	});
 	
 });

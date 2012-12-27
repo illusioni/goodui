@@ -37,11 +37,17 @@ $(function() {
 		
 		initialize: function() {
 			this.listenTo(this.model, "add", this.addEvent);
+      		this.listenTo(this.model, 'reset', this.addAll);
+			this.model.fetch();
 		},
 		
 		addEvent: function(newEvent) {
 			var view = new EventItemView({model: newEvent});
 			this.$("#events-table").append(view.render().el);
+		},
+		
+		addAll: function() {
+			this.model.each(this.addEvent);
 		}
 		
 	});

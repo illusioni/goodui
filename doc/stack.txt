@@ -1,8 +1,7 @@
 == Question(s):
 
-Can I declare and wire actions for UI events in one central place?
-
+How can I sync the model to a persistence component?
 
 == Details:
 
-http://backbonejs.org/#View
+http://backbonejs.org/#Sync

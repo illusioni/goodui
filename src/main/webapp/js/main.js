@@ -11,19 +11,20 @@ $(function() {
 	
 	var EventsView = new EventListView({model: Events});
 	
+	if (Events.length<2) {
+		alert("adding some dummy data");
+		Events.create({date: '2012-12-01', attending: ['Frank', 'Verena', 'Ada',  'Klaus', 'Dan'], absent: ['Saskia', 'Michi']});
+		Events.create({date: '2012-12-08', attending: ['Frank', 'Verena', 'Ada',  'Klaus', 'Saskia', 'Michi'], absent: ['Dan']});
+		Events.create({date: '2012-12-15', attending: ['Frank', 'Ada', 'Dan'], absent: ['Michi']});
+	}
 	
-	Events.add(new Event({date: '2012-12-01', attending: ['Frank', 'Verena', 'Ada',  'Klaus', 'Dan'], absent: ['Saskia', 'Michi']}));
-	Events.add(new Event({date: '2012-12-08', attending: ['Frank', 'Verena', 'Ada',  'Klaus', 'Saskia', 'Michi'], absent: ['Dan']}));
-	Events.add(new Event({date: '2012-12-15', attending: ['Frank', 'Ada', 'Dan'], absent: ['Michi']}));
-	
-	alert("klick ok to remove one event");
-	Events.at(1).destroy();
-	
-	alert("klick ok to modify an event");
-	Events.at(1).set({attending: ['nobody'], absent: ['everybody']});
+	alert("klick ok to modify an event without addressing storage");
+	Events.at(0).set({attending: ['nobody'], absent: ['everybody']});
+	alert("klick ok to modify and store an event");
+	Events.at(1).save({attending: ['everybody'], absent: ['nobody']});
 
 	window.addNewEvent = function(form) {
-		Events.add(new Event({date: form.date.value, attending: $(form.attending).val(), absent: $(form.absent).val()}));
+		Events.create({date: form.date.value, attending: $(form.attending).val(), absent: $(form.absent).val()});
 	}
 	
 });
