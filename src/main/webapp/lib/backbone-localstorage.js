@@ -82,3 +82,5 @@ Backbone.sync = function(method, model, options) {
     options.error("Record not found");
   }
 };
+
+//Note: Where did I get this file? https://github.com/jeromegn/Backbone.localStorage ?

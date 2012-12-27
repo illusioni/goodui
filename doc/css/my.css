@@ -16,3 +16,7 @@ h2 {
 	background-repeat: no-repeat;
 	background-position: 5px top;
 }
+
+.greyed {
+	color: #999;
+}

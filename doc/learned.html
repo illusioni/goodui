@@ -105,6 +105,7 @@ Events.add(new Event({date: '2012-12-15', attending: ['Frank', 'Ada', 'Dan'], ab
         
         <span class="commit">(7e5f000881c674c53f5ac729f9f8e591f2bfa818)</span>
         
+        
         <h2>Q002 - How can I describe my data's representation in a declarative way?</h2>
         
         <p>Backbone.js depends on Underscore.js, which has this <a href="http://underscorejs.org/#template">_.template</a> method... I could use _.template, but it's ugly, since It only replaces keys in JS strings. I would still write JS code for looping over items in a collection, etc.</p>
@@ -155,6 +156,7 @@ Events.add(new Event({date: '2012-12-15', attending: ['Frank', 'Ada', 'Dan'], ab
         
         <span class="commit">(772cb879faf544b3a9d2c87c07d4ea4435c69cda)</span>
         
+        
         <h2>Q003 - Can I avoid boilerplate code that renders the representation on each model change?</h2>
         
         <p>Finding: No finding. There is no ready-made solution in Backbone.js for generic rendering. It does feature a <strong>View</strong> class though. Views have a clear responsibility: They are where to keep the code (and its parameters) that takes care of reacting to model modifications and updating the UI. A view has a render function which can be bound to the model's  events.</p>
@@ -178,7 +180,7 @@ Events.add(new Event({date: '2012-12-15', attending: ['Frank', 'Ada', 'Dan'], ab
 	
 });</pre>
         
-        <p>Model items in a collection each have a view that listens to the item. When the item changed, its view updates itself. When the item is destroyed, its view will remove itself from the DOM.</p>
+        <p>Model items in a collection each have a view that listens to the item. When the item changes, its view updates itself. When the item is destroyed, its view will remove itself from the DOM.</p>
         <p>This standardizes where the code for UI updates should go, but it doesn't spare me the coding of this generic behavior in each view. I'm ok with this for now, though, since it seems quite simple to define generic behavior for my views if the application grows (through a common prototype or so). The generic behavior could include registering as a listener to the model and rendering from a Handlebars template that can be provided individually to every concrete view.</p>
         
         <p>I also need a view for the whole list:</p>
@@ -211,8 +213,43 @@ alert("klick ok to modify an event");
 Events.at(1).set({attending: ['nobody'], absent: ['everybody']});</pre>
 
 		<p>Cute, but I'd rather have a delete button behind each event listed on the page, and possibly some widgets for editing it. And - again - I don't want to spread the action code or wire it in different places. I'd like to organize everything neatly inside the view, which brings up the next question...</p>
-		<h2>Q004 - Can I declare and wire actions for UI events in one central place?</h2>
+		
+        <span class="commit">(ac8bc72842bfb6207906467634080f767c4dd601)</span>
         
-        </div> <!-- container -->
+        
+        <h2>Q004 - Can I declare and wire actions for UI events in one central place?</h2>
+
+		<p>So, let's add a delete button at the end of every EventItem row in the table by adding a line to the item template in <a href="../src/main/webapp/index.html">index.html</a>:</p>
+        
+        <pre><span class="greyed">&lt;script id=&quot;item-template&quot; type=&quot;text/x-handlebars-template&quot;&gt;
+	&lt;td&gt;{{date}}&lt;/td&gt;
+	&lt;td&gt;{{#each attending}} &lt;span class=&quot;attending&quot;&gt;{{this}}&lt;/span&gt; {{/each}}&lt;/td&gt;
+	&lt;td&gt;{{#each absent}} &lt;span class=&quot;absent&quot;&gt;{{this}}&lt;/span&gt; {{/each}}&lt;/td&gt;</span>
+	&lt;td&gt;&lt;button class=&quot;delbtn&quot;&gt;delete&lt;/button&gt;&lt;/td&gt;
+<span class="greyed">&lt;/script&gt;</span></pre>
+
+		<p>Then we map the DOM events to handlers in <a href="../src/main/webapp/js/view.js">view.js</a>:</p>
+        
+        <pre><span class="greyed">window.EventItemView = Backbone.View.extend({</span>
+	
+	events: {
+		"click .delbtn": "deleteThisItem",
+		"dblclick": "showInfoForThisItem"
+	},
+	
+	deleteThisItem: function() {
+		this.model.destroy();
+	},
+	
+	showInfoForThisItem: function() {
+		alert("You doubleclicked the event scheduled for " + this.model.get("date"));
+	},
+	
+<span class="greyed">	template: Handlebars.compile($("#item-template").html()),
+    ...</span></pre>
+
+		<p>Reminder: In JavaScript scope is handled a little different than in most statically typed oo languages (which makes you use the <a href="http://www.quirksmode.org/js/this.html">this</a> keyword explicitly quite often). Declaring event handler methods inside the view and mapping from DOM event to these handlers (rather than calling them as callback functions from inside <code>onclick</code>) leaves you with a correctly assigned this reference / useful scope.</p>
+                
+    </div> <!-- container -->
 	</body>
 </html>

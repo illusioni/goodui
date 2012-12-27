@@ -2,6 +2,19 @@ $(function() {
 	
 	window.EventItemView = Backbone.View.extend({
 		
+		events: {
+			"click .delbtn": "deleteThisItem",
+			"dblclick": "showInfoForThisItem"
+		},
+		
+		deleteThisItem: function() {
+			this.model.destroy();
+		},
+		
+		showInfoForThisItem: function() {
+			alert("You doubleclicked the event scheduled for " + this.model.get("date"));
+		},
+		
 		template: Handlebars.compile($("#item-template").html()),
 		
 		tagName: "tr",
