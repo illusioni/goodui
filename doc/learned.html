@@ -255,8 +255,37 @@ Events.at(1).set({attending: ['nobody'], absent: ['everybody']});</pre>
         
         <h2>Q005 - How can I sync the model to a persistence component?</h2>
         
-		<p>&nbsp;</p>
+		<p>From copying an <a href="http://backbonejs.org/examples/todos/index.html">example that uses local storage</a> I already had some of the necessary things in my code. I updated backbone-localstorage.js and made sure these lines were in my code:</p>
         
+        <pre><span class="greyed">window.EventList = Backbone.Collection.extend({
+	model: Event,</span>
+	localStorage: new Backbone.LocalStorage("eventlist-backbone")
+<span class="greyed">});</span></pre>
+        
+        <p>This line in model.js tells backbone which storage adapter to use for persisting the events list.<br>
+        Yes, I'm currently persisting one events list only. Future implementations should pay respect to activities and their the associatied events.</p>
+        
+        <p>We need to include the adapter's implementation (in backbone-localstorage.js):</p>
+        
+        <pre>&lt;script src=&quot;lib/backbone-localstorage.js&quot;&gt;&lt;/script&gt;</pre>
+        
+        <p>And now we can created, modify and delete model elements:</p>
+        
+        <pre>Events.create({date: form.date.value, attending: $(form.attending).val(), absent: $(form.absent).val()});</pre>
+        
+        <p>This is still the jQuery-only implementation from q001 in main.js. It shows what's necessary, though: A call to the create method of a backbone collection with a vallue map creates a new model entity.</p>
+        
+        <p>These lines (both in main.js) demonstrate how to modify a model entity (here: 1 individual event item) with or without persisting the changes:</p>
+        
+        <pre>Events.at(1).<strong>set</strong>({attending: ['everybody'], absent: ['nobody']});</pre>
+        
+        <pre>Events.at(1).<strong>save</strong>({attending: ['everybody'], absent: ['nobody']});</pre>
+        
+        <p>And removing an entity from a collection is just as easy:</p>
+        
+        <pre>Events.at(1).destroy();</pre>
+        
+        <p>According to the backbone documentation simply replacing the storage adapter will enable our app to sync to a RESTful backend.</p>
         
 		</div> 
 		<!-- container -->
