@@ -33,7 +33,7 @@ $(function() {
 	
 	window.EventListView = Backbone.View.extend({
 		
-		el: $("#content"),
+		el: $("#list-view"),
 		
 		initialize: function() {
 			this.listenTo(this.model, "add", this.addEvent);
@@ -54,7 +54,7 @@ $(function() {
 	
 	window.CreateEventView = Backbone.View.extend({
 		
-		el: $("#new-event-form"),
+		el: $("#new-event-view"),
 		
 		initialize: function() {
 			this.date = this.$('[name="date"]');

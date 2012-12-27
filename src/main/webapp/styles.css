@@ -1,6 +1,11 @@
 @charset "UTF-8";
+
+h2 {
+	margin-top: 0px;
+}
+
 table {
-	border:thin solid black;
+	background-color: white;
 	border-spacing: 5px;
 }
 
@@ -10,4 +15,20 @@ span.attending {
 
 span.absent {
 	color: #900;
+}
+
+.widepagepart {
+	border-style: solid;
+	border-color:#999999;
+	border-right-width: 5px;
+	border-left-width: 5px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	
+	padding: 10px;
+	
+	margin-right: 5%;
+	margin-left: 5%;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
