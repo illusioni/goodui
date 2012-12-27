@@ -51,5 +51,25 @@ $(function() {
 		}
 		
 	});
+	
+	window.CreateEventView = Backbone.View.extend({
+		
+		el: $("#new-event-form"),
+		
+		initialize: function() {
+			this.date = this.$('[name="date"]');
+			this.attending = this.$('[name="attending"]');
+			this.absent = this.$('[name="absent"]');
+		},
+		
+		events: {
+			"click button": "createEvent"
+		},
+		
+		createEvent: function(form) {
+			this.model.create({date: this.date.val(), attending: this.attending.val(), absent: this.absent.val()});
+		}
+		
+	});
 	  
 });
