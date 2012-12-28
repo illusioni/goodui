@@ -2,15 +2,11 @@
 
 How do I work with the URL?
 
-What's the History API?
-
 == Details:
 
 Focus: Use parts of the URL to determine what data to request from the backend
 Not my focus right now: History support
 
 History API: http://backbonejs.org/#Router
-http://html5demos.com/history
-http://diveintohtml5.info/history.html
 
 
