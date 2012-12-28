@@ -1,7 +1,9 @@
 == Question(s):
 
-How can I sync the model to a persistence component?
+How do I work with the URL?
 
 == Details:
 
-http://backbonejs.org/#Sync
+Focus: Use parts of the URL to determine what data to request from the backend
+Not my focus right now: History support
+
