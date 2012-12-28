@@ -292,7 +292,7 @@ Events.at(1).set({attending: ['nobody'], absent: ['everybody']});</pre>
         
         <span class="commit">(ba7786ed20ca3231c46cd7c4c57fb24502ed4790)</span>
         
-        <p class="infobox">Just now I cleaned up the code a little to get rid of all the hacks I used before doing things "the nice way".</p>
+        <p class="infobox">I cleaned up the code a little to get rid of all the hacks I used before doing things "the nice way".</p>
         
         <span class="commit">(1ad136f435ccadc874e0602622b5b2fc827944db)</span>
         
@@ -301,9 +301,37 @@ Events.at(1).set({attending: ['nobody'], absent: ['everybody']});</pre>
         
         <p>There's a couple of things I might want to do with the URL. Currently I'm not interested in history support. My focus right now: I want to use parts of the URL to determine what data to request from the backend. We have different activities, so based on something in the URL I want to display the events for one certain activity.</p>
         
+        <p>Using plain old JS I could access and parse the URL. I'm reluctant, though, to write (and make maintainers read) any line of code that can be avoided with reasonable effort. In this case (though lacking any browser history requirements) I can leverage <a href="http://backbonejs.org/#Router">Backbone.Router</a> and avoid manually messing with the URL. I'll define a "route" with a parameter part in <a href="../src/main/webapp/js/main.js">main.js</a> for this:</p>
         
+        <pre>var Router = Backbone.Router.extend({
+	routes: {
+		"":                       "displayActivitiesList",
+		"activities/:activityId": "displayActivity"
+	},
+	
+	displayActivity: function(activityId) {
+	...
+});
+var router = new Router();
+Backbone.history.start();</pre>
+  
+  		<p>This makes backbone call the function <code>displayActivity</code> with the argument <tt>Ultimate</tt> when the URL contains the fragment <tt>.../index.html#activities/Ultimate</tt>.</p>
         
-		</div> 
+        <p>Still being without a backend I can only assume that this would sync my model with the appropriate RESTful backend resource:</p>
+        
+        <pre>events.url = "/activities/" + activityId + "/events";
+alert("reloading event list from url " + events.url);
+events.fetch();</pre>
+
+		<p>Alright, it is about time to take care of a reasonable backend...</p>
+        
+        <p class="infobox">While implementing the solution to this question I cleaned up the sources a little more. Unfortunately I did not distinguish solution steps and cleanup...</p>
+        
+        <span class="commit">(1ad136f435ccadc874e0602622b5b2fc827944db)</span>
+        
+        <h2>Q007 - How do I sync with a RESTful backend?</h2>
+        
+	</div> 
 		<!-- container -->
 	</body>
 </html>
