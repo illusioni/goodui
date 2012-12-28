@@ -1,12 +1,11 @@
 == Question(s):
 
-How do I work with the URL?
+How do I sync with a RESTful backend?
+
+How do I provide a RESTful service as easy as possible?
 
 == Details:
 
-Focus: Use parts of the URL to determine what data to request from the backend
-Not my focus right now: History support
-
-History API: http://backbonejs.org/#Router
-
+No big hassle with application container, depdendencies, etc. (Tomcat, Spring, Jersey, ...)  => Play framework?
+http://stackoverflow.com/questions/4379485/restful-on-play-framework
 
