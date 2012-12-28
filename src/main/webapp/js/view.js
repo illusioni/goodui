@@ -1,5 +1,21 @@
 $(function() {
 	
+	window.ActivityDetailsView = Backbone.View.extend({
+		
+		el: $("#activity-view"),
+		
+		initialize: function() {
+			this.listenTo(this.model, 'change', this.render);
+		},
+		
+		template: Handlebars.compile($("#activity-template").html()),
+		
+		render: function() {
+			this.$el.html(this.template(this.model.toJSON()));
+			return this;
+		}
+	});
+	
 	window.EventItemView = Backbone.View.extend({
 		
 		events: {
@@ -37,7 +53,7 @@ $(function() {
 		
 		initialize: function() {
 			this.listenTo(this.model, "add", this.addEvent);
-      		this.listenTo(this.model, 'reset', this.addAll);
+      		this.listenTo(this.model, 'reset', this.resetAll);
 			this.model.fetch();
 		},
 		
@@ -46,7 +62,8 @@ $(function() {
 			this.$("#events-table").append(view.render().el);
 		},
 		
-		addAll: function() {
+		resetAll: function() {
+			this.$("#events-table").html("");
 			this.model.each(this.addEvent);
 		}
 		

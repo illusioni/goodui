@@ -8,32 +8,47 @@
 
 <body>
     
-    <div id="new-event-view" class="widepagepart">
-		<h2>Create a new event</h2>
-    	<form>
-            date:<input name="date" type="date" value="2012-12-21">
-            attending: <select name="attending" multiple>
-                <option>Ada</option>
-                <option>Dan</option>
-                <option>Frank</option>
-                <option>Saskia</option>
-                <option>Verena</option>
-            </select>
-            absent: <select name="absent" multiple>
-                <option>Ada</option>
-                <option>Dan</option>
-                <option>Frank</option>
-                <option>Saskia</option>
-                <option>Verena</option>
-            </select>
-            <button type="button">add new event</button>
-        </form>
+    <div id="activities-list">
+    	<h1>Activites to choose from</h1>
+        <ul>
+            <li><a href="#activities/Ultimate">Ultimate Frisbee</a></li>
+            <li><a href="#activities/Fintentisch">Fintentisch</a></li>
+            <li><a href="#activities/Kraxln">Kraxln</a></li>
+        </ul>
     </div>
     
-	<div id="list-view" class="widepagepart">
-		<h2>All events</h2>
-		<table id="events-table"></table>
-	</div>
+    <div id="activity-details">
+    
+        <div id="activity-view"></div>
+        
+        <div id="new-event-view" class="widepagepart">
+            <h2>Create a new event</h2>
+            <form>
+                date:<input name="date" type="date" value="2012-12-21">
+                attending: <select name="attending" multiple>
+                    <option>Ada</option>
+                    <option>Dan</option>
+                    <option>Frank</option>
+                    <option>Saskia</option>
+                    <option>Verena</option>
+                </select>
+                absent: <select name="absent" multiple>
+                    <option>Ada</option>
+                    <option>Dan</option>
+                    <option>Frank</option>
+                    <option>Saskia</option>
+                    <option>Verena</option>
+                </select>
+                <button type="button">add new event</button>
+            </form>
+        </div>
+        
+        <div id="list-view" class="widepagepart">
+            <h2>All events</h2>
+            <table id="events-table"></table>
+        </div>
+        
+    </div>
     
 	<div id="log" class="widepagepart">
 		<h2>Log output</h2>
@@ -47,6 +62,7 @@
 	<script src="lib/backbone.js"></script>
 	<script src="lib/backbone-localstorage.js"></script>
 	<script src="lib/handlebars-1.0.rc.1.js"></script>
+	<script src="lib/json2.js"></script>
 
 	<script src="js/model.js"></script>
 	<script src="js/view.js"></script>
@@ -56,6 +72,10 @@
     
     <!-- TEMPLATES -->
     <!-- It's ugly that all templates should be listed here -->
+    
+    <script id="activity-template" type="text/x-handlebars-template">
+		<h1>Activity {{name}}</h1>
+	</script>
     
     <script id="item-template" type="text/x-handlebars-template">
 		<td>{{date}}</td>

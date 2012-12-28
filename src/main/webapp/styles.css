@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+h1 {
+	text-align: center;
+}
+
 h2 {
 	margin-top: 0px;
 }
@@ -7,6 +11,12 @@ h2 {
 table {
 	background-color: white;
 	border-spacing: 5px;
+}
+
+
+li {
+	list-style-type: none;
+	text-align: center;
 }
 
 span.attending {
