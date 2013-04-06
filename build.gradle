@@ -1,3 +1,13 @@
 apply plugin: 'eclipse-wtp'
 apply plugin: 'war'
 
+def springVersion='3.2.2.RELEASE'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+    compile  "org.springframework:spring-webmvc:${springVersion}"
+	compile  'org.slf4j:slf4j-api:1.7.5'
+}

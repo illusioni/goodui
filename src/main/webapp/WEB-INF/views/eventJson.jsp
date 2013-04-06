@@ -1,0 +1,1 @@
+{"date":"2012-12-21","attending":["Dan", "Herbert"],"absent":["Saskia", "Sibylle"],"id":"${id}"}

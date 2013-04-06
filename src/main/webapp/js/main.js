@@ -19,7 +19,7 @@ $(function() {
 		displayActivity: function(activityId) {
 			activity.set({name: activityId});
 			//doesn't do anything with local storage:
-			events.url = "/activities/" + activityId + "/events";
+			events.url = "/mvc/activities/" + activityId + "/events";
 			alert("reloading event list from url " + events.url);
 			events.fetch();
 			$("#activity-details").show();
